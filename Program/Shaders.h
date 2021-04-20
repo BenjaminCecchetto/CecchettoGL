@@ -9,8 +9,10 @@
 #define SHADERS_H_
 
 #include <GL/glew.h>
-#include <string>
+
 #include <memory>
+#include <string>
+
 #include "../Utility/FileLoader.h"
 
 namespace cgl {
@@ -29,113 +31,102 @@ typedef std::shared_ptr<FragmentShader> FragmentShaderPtr;
 typedef std::shared_ptr<ComputeShader> ComputeShaderPtr;
 
 class Shader {
-    GLuint id;
-public:
-    Shader(GLenum type, std::string source);
+  GLuint id;
 
-    virtual ~Shader();
+ public:
+  Shader(GLenum type, std::string source);
 
-    GLuint GetID() {
-        return id;
-    }
+  virtual ~Shader();
+
+  GLuint GetID() { return id; }
 };
 
-class VertexShader: public Shader {
-public:
-    VertexShader(std::string source) :
-            Shader(GL_VERTEX_SHADER, source) {
-    }
+class VertexShader : public Shader {
+ public:
+  VertexShader(std::string source) : Shader(GL_VERTEX_SHADER, source) {}
 
-    static VertexShaderPtr New(std::string source) {
-        return std::make_shared<VertexShader>(source);
-    }
-    static VertexShaderPtr NewFromFile(std::string filename) {
-        std::string source;
-        source = FileLoader::FilenameToString(filename);
-        return std::make_shared<VertexShader>(source);
-    }
+  static VertexShaderPtr New(std::string source) {
+    return std::make_shared<VertexShader>(source);
+  }
+  static VertexShaderPtr NewFromFile(std::string filename) {
+    std::string source;
+    source = FileLoader::FilenameToString(filename);
+    return std::make_shared<VertexShader>(source);
+  }
 };
 
-class TessControlShader: public Shader {
-public:
-    TessControlShader(std::string source) :
-            Shader(GL_TESS_CONTROL_SHADER, source) {
-    }
+class TessControlShader : public Shader {
+ public:
+  TessControlShader(std::string source)
+      : Shader(GL_TESS_CONTROL_SHADER, source) {}
 
-    static TessControlShaderPtr New(std::string source) {
-        return std::make_shared<TessControlShader>(source);
-    }
-    static TessControlShaderPtr NewFromFile(std::string filename) {
-        std::string source;
-        source = FileLoader::FilenameToString(filename);
-        return std::make_shared<TessControlShader>(source);
-    }
+  static TessControlShaderPtr New(std::string source) {
+    return std::make_shared<TessControlShader>(source);
+  }
+  static TessControlShaderPtr NewFromFile(std::string filename) {
+    std::string source;
+    source = FileLoader::FilenameToString(filename);
+    return std::make_shared<TessControlShader>(source);
+  }
 };
 
-class TessEvaluationShader: public Shader {
-public:
-    TessEvaluationShader(std::string source) :
-            Shader(GL_TESS_EVALUATION_SHADER, source) {
-    }
+class TessEvaluationShader : public Shader {
+ public:
+  TessEvaluationShader(std::string source)
+      : Shader(GL_TESS_EVALUATION_SHADER, source) {}
 
-    static TessEvaluationShaderPtr New(std::string source) {
-        return std::make_shared<TessEvaluationShader>(source);
-    }
-    static TessEvaluationShaderPtr NewFromFile(std::string filename) {
-        std::string source;
-        source = FileLoader::FilenameToString(filename);
-        return std::make_shared<TessEvaluationShader>(source);
-    }
+  static TessEvaluationShaderPtr New(std::string source) {
+    return std::make_shared<TessEvaluationShader>(source);
+  }
+  static TessEvaluationShaderPtr NewFromFile(std::string filename) {
+    std::string source;
+    source = FileLoader::FilenameToString(filename);
+    return std::make_shared<TessEvaluationShader>(source);
+  }
 };
 
-class GeometryShader: public Shader {
-public:
-    GeometryShader(std::string source) :
-            Shader(GL_GEOMETRY_SHADER, source) {
-    }
+class GeometryShader : public Shader {
+ public:
+  GeometryShader(std::string source) : Shader(GL_GEOMETRY_SHADER, source) {}
 
-    static GeometryShaderPtr New(std::string source) {
-        return std::make_shared<GeometryShader>(source);
-    }
-    static GeometryShaderPtr NewFromFile(std::string filename) {
-        std::string source;
-        source = FileLoader::FilenameToString(filename);
-        return std::make_shared<GeometryShader>(source);
-    }
+  static GeometryShaderPtr New(std::string source) {
+    return std::make_shared<GeometryShader>(source);
+  }
+  static GeometryShaderPtr NewFromFile(std::string filename) {
+    std::string source;
+    source = FileLoader::FilenameToString(filename);
+    return std::make_shared<GeometryShader>(source);
+  }
 };
 
-class FragmentShader: public Shader {
-public:
-    FragmentShader(std::string source) :
-            Shader(GL_FRAGMENT_SHADER, source) {
-    }
+class FragmentShader : public Shader {
+ public:
+  FragmentShader(std::string source) : Shader(GL_FRAGMENT_SHADER, source) {}
 
-    static FragmentShaderPtr New(std::string source) {
-        return std::make_shared<FragmentShader>(source);
-    }
-    static FragmentShaderPtr NewFromFile(std::string filename) {
-        std::string source;
-        source = FileLoader::FilenameToString(filename);
-        return std::make_shared<FragmentShader>(source);
-    }
+  static FragmentShaderPtr New(std::string source) {
+    return std::make_shared<FragmentShader>(source);
+  }
+  static FragmentShaderPtr NewFromFile(std::string filename) {
+    std::string source;
+    source = FileLoader::FilenameToString(filename);
+    return std::make_shared<FragmentShader>(source);
+  }
 };
 
-class ComputeShader: public Shader {
-public:
-    ComputeShader(std::string source) :
-            Shader(GL_COMPUTE_SHADER, source) {
-    }
+class ComputeShader : public Shader {
+ public:
+  ComputeShader(std::string source) : Shader(GL_COMPUTE_SHADER, source) {}
 
-    static ComputeShaderPtr New(std::string source) {
-        return std::make_shared<ComputeShader>(source);
-    }
-    static ComputeShaderPtr NewFromFile(std::string filename) {
-        std::string source;
-        source = FileLoader::FilenameToString(filename);
-        return std::make_shared<ComputeShader>(source);
-    }
+  static ComputeShaderPtr New(std::string source) {
+    return std::make_shared<ComputeShader>(source);
+  }
+  static ComputeShaderPtr NewFromFile(std::string filename) {
+    std::string source;
+    source = FileLoader::FilenameToString(filename);
+    return std::make_shared<ComputeShader>(source);
+  }
 };
 
-}
+}  // namespace cgl
 
 #endif /* SHADERS_H_ */

@@ -5,38 +5,38 @@
  *      Author: root
  */
 
+#include "Random.h"
+
 #include <stdlib.h>
 #include <time.h>
-
-#include "Random.h"
 
 namespace cgl {
 
 bool Random::ranOnce = false;
 
 float Random::frand() {
-    seed();
+  seed();
 
-    return static_cast<float>(drand48());
+  return static_cast<float>(drand());
 }
 
 double Random::drand() {
-    seed();
+  seed();
 
-    return drand48();
+  return drand();
 }
 
 uint32_t Random::rand(uint32_t max) {
-    seed();
+  seed();
 
-    return static_cast<uint32_t>(drand48()*max);
+  return static_cast<uint32_t>(drand() * max);
 }
 
 void Random::seed() {
-    if (!ranOnce) {
-        srand48(time(0));
-        ranOnce = true;
-    }
+  if (!ranOnce) {
+    srand(time(0));
+    ranOnce = true;
+  }
 }
 
-}
+}  // namespace cgl
