@@ -17,15 +17,27 @@ void TextRenderer::RenderText(glm::vec2 screenPosition, std::string text) {
   static TTF_Font* font = nullptr;
   static RenderTexturePassPtr rtp = nullptr;
 
+  static bool initTTF = false;
+  if (!initTTF) {
+    TTF_Init();
+    initTTF = true;
+  }
+
   if (!ranonce) {
     ranonce = true;
+    std::string basePath = std::string(SDL_GetBasePath());
+    std::string fontName = basePath + "data\\amaro-arial-bold.ttf";
 
-    font = TTF_OpenFont("data/ufonts.com_courier-new.ttf",
-                        s_fontSize);  // needs to be freed
+    font = TTF_OpenFont(fontName.c_str(), s_fontSize);  // needs to be freed
+    if (font == nullptr) {
+      std::cout << "Cannot find font: " << fontName << std::endl;
+      return;
+    }
 
-    textFragShader = FragmentShader::NewFromFile("shaders/textFragment.glsl");
-    textVertShader = VertexShader::NewFromFile("shaders/textVert.glsl");
-
+    auto fragShaderPath = basePath + "shaders/textFragment.glsl";
+    auto vertShaderPath = basePath + "shaders/textVert.glsl";
+    textFragShader = FragmentShader::NewFromFile(fragShaderPath);
+    textVertShader = VertexShader::NewFromFile(vertShaderPath);
     rtp = RenderTexturePass::New(nullptr, textVertShader, textFragShader);
   }
 
